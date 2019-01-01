@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 
 /**
@@ -27,6 +28,11 @@ public class FirstclickAddFragment extends Fragment {
         // Inflate the layout for this fragment
         //code hamoono inja neminevisim
         View v = inflater.inflate(R.layout.fragment_firstclick_add, container, false);
+        EditText subjectName=v.findViewById(R.id.edt_firstClickFragment_subjName);
+        EditText subjectPriority=v.findViewById(R.id.edt_firstClickFragment_subjPriority);
+        EditText perWeek=v.findViewById(R.id.edt_firstClickFragment_dayPerWeek);
+        EditText perDay=v.findViewById(R.id.edt_firstClickFragment_hourPerDay);
+
         return v;
     }
 /*
@@ -35,5 +41,6 @@ code hamoono inja minevisim
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
     }
 }
