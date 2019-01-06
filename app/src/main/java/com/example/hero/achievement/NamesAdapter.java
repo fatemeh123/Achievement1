@@ -7,14 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.hero.achievement.model.DatabaseModel1;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder> {
 
-    LinkedList<String> subjectList= new LinkedList<>(); //vase delete kardan rahat tare
+    List<DatabaseModel1> subjectList= new LinkedList<>(); //vase delete kardan rahat tare
 
-    NamesAdapter(LinkedList<String> subjects ){
+    NamesAdapter(List<DatabaseModel1> subjects ){
         subjectList=subjects;
     }
 
@@ -31,10 +33,9 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
     }
 
 
-
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        myViewHolder.textView.setText("Happiness");
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
+        myViewHolder.textView.setText(subjectList.get(position).getSubjectName() + position);
 
 
     }
@@ -46,7 +47,7 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
-                TextView textView;
+        TextView textView;
 
           public MyViewHolder(@NonNull View itemView) {
               super(itemView);

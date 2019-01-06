@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f7f5f5">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:id="@+id/btnBackAddingDialog"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="back"/>
+
+                    <Button
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:id="@+id/btnSaveBackAddingDialog"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="save"
+                        />
+
+                </LinearLayout>
+
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:hint= "Subjec Name "
+                    android:padding="10dp"
+                    android:id="@+id/edtAddingDialogSubjName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:id="@+id/edtAddingDialogSubjPriority"
+                    android:layout_width="match_parent"
+                    android:inputType="number"
+                    android:layout_height="wrap_content"
+                    android:hint= "Subject Priority from 1 to 10" />
+
+
+                <EditText
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:inputType="number"
+                    android:id="@+id/edtAddingDialogDayPerWeek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint= "How many days per week?" />
+
+                <EditText
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:id="@+id/edtAddingDialogHourPerDay"
+                    android:layout_width="match_parent"
+                    android:inputType="number"
+                    android:layout_height="wrap_content"
+                    android:hint= "Hours per session " />
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</android.support.constraint.ConstraintLayout>
