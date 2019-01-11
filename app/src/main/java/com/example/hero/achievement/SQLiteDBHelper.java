@@ -5,22 +5,28 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import  android.support.annotation.Nullable;
 
 import com.example.hero.achievement.model.DatabaseModel1;
+import com.example.hero.achievement.modeltwo.DatabaseModelTwo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SQLiteDBHelper  extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "Amozesh.db";
+    private static final String local = Environment.getExternalStorageDirectory().getAbsolutePath();
+    private static final String dbPath = local + "/Android/";
+
+    private static final String DATABASE_NAME = dbPath + "Amozesh.db";
     private static final int VERSION_NAME = 1;
     private SQLiteDatabase database;
 
-    String TABLE_NAME = "Projects";
+    String TABLE_NAME_subject = "Projects";
+    String TABLE_NAME_session = "Session";
 
-    String create_table_subjects = " CREATE TABLE " + TABLE_NAME + " (" +
+    String create_table_subjects = " CREATE TABLE " + TABLE_NAME_subject + " (" +
             " _id INTEGER PRIMARY KEY AUTOINCREMENT ," +
             "subjectName TEXT ," +
             "priority INTEGER ," +
@@ -28,21 +34,25 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
             "hoursPerSession INTEGER " +
             ")";
 
-    String create_table_adding_session = " CREATE TABLE " + TABLE_NAME + "(" +
+    String create_table_add_session = " CREATE TABLE " + TABLE_NAME_session + "(" +
             " _id INTEGER PRIMARY KEY AUTOINCREMENT ," +
             "subjectName TEXT ," +
-            "priority INTEGER ," +
-            "daysPerWeek INTEGER ," +
-            "hoursPerSession INTEGER " +
+            "satisfaction INTEGER ," +
+            "hour INTEGER ," +
+            "quality INTEGER ," +
+            "date TEXT " +
+
             ")";
 
     public SQLiteDBHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION_NAME);
-        this.database = this.getWritableDatabase();
+        this.database = getWritableDatabase();
     }
 
     public void dropTable(SQLiteDatabase db){
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_subject);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_session);
+
         onCreate(db);
     }
 
@@ -56,7 +66,10 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
      */
 
     @Override
-    public void onCreate(SQLiteDatabase db) {db.execSQL(create_table_subjects); }
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(create_table_subjects);
+        db.execSQL(create_table_add_session);
+    }
 
     /*
      age bekhay taghir bedi inja taghirato anjam midi
@@ -69,12 +82,15 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-
+ /*
+ barrye gerreftane etelaat e har dars
+  */
     public void insertSubjects(List<DatabaseModel1> list) {
 
         String insertSubjectToDB = "" +
-                "INSERT INTO " + TABLE_NAME +
+                "INSERT INTO " + TABLE_NAME_subject +
                 "(subjectName,priority,daysPerWeek,hoursPerSession)" +
+
                 " VALUES ('" +
                 list.get(0).getSubjectName() + "'," +
                 list.get(0).getPriority() + "," +
@@ -88,13 +104,34 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
 
     }
 
+    public void insertAddSEssion(List<DatabaseModelTwo> list) {
+
+        String insertSessionToDB = "INSERT INTO " + TABLE_NAME_session +
+                "(subjectName,satisfaction,hour,quality,date)" +
+                " VALUES ('" +
+                list.get(0).getSubjectName() + "'," +
+                list.get(0).getSatisfaction() + "," +
+                list.get(0).getHour() + "," +
+                list.get(0).getQuality() +"," +
+                list.get(0).getdate() +
+
+                ")";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(insertSessionToDB);
+        db.close();
+
+    }
+    /*
+    baraye khoondan az database
+     */
     public List<DatabaseModel1> getTable(){
 
         List<DatabaseModel1> list = new ArrayList<>();
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor all  = db.rawQuery("SELECT * FROM " +  TABLE_NAME , null);
+        Cursor all  = db.rawQuery("SELECT * FROM " +  TABLE_NAME_subject , null);
 
         if(all.moveToFirst()){
             do{
@@ -110,6 +147,35 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
         }
         db.close();
         return list;
+    }
+
+
+    public  List<DatabaseModelTwo> getSessionTable(){
+
+
+        List<DatabaseModelTwo> sessionList=new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor all  = db.rawQuery("SELECT * FROM " +  TABLE_NAME_session , null);
+
+
+        if(all.moveToFirst()){
+            do{
+                int id      = all.getInt(0);
+                String s1   = all.getString(1);
+                int i1      = all.getInt(3);
+                int i2      = all.getInt(4);
+                int i3      = all.getInt(5);
+                String d1   = all.getString(2);
+
+
+                sessionList.add(new DatabaseModelTwo(s1,i1,i2,i3,d1));
+            }
+            while(all.moveToNext());
+        }
+        db.close();
+
+            return sessionList;
     }
 
 

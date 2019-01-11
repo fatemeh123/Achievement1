@@ -1,23 +1,47 @@
 package com.example.hero.achievement;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.hero.achievement.core.Core;
 import com.example.hero.achievement.model.DatabaseModel1;
+import com.example.hero.achievement.modeltwo.DatabaseModelTwo;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder> {
 
-    List<DatabaseModel1> subjectList= new LinkedList<>(); //vase delete kardan rahat tare
 
-    NamesAdapter(List<DatabaseModel1> subjects ){
-        subjectList=subjects;
+    List<DatabaseModel1> subjectList = new LinkedList<>(); //vase delete kardan rahat tare
+    private SQLiteDBHelper sqLiteDBHelper;
+
+    //List<DatabaseModelTwo>
+    TextView textView;
+    ImageView addSession;
+    ImageView seeProgress;
+    private final Context context;
+
+    private MaterialDialog.Builder sessionDialogBuilder;
+    private MaterialDialog addingSessionDialog;
+
+    NamesAdapter(Context context1, List<DatabaseModel1> subjects) {
+
+        context = context1;
+        subjectList = subjects;
+
+        this.sqLiteDBHelper = new SQLiteDBHelper(context1);
     }
 
     /*
@@ -27,15 +51,25 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View v=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.names_list_item,viewGroup,false);
-        MyViewHolder holder=new MyViewHolder(v);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.names_list_item, viewGroup, false);
+        MyViewHolder holder = new MyViewHolder(v);
+
+
         return holder;
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
         myViewHolder.textView.setText(subjectList.get(position).getSubjectName() + position);
+
+
+        myViewHolder.addSession.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myViewHolder.initDialogAddSession(subjectList.get(position).getSubjectName());
+            }
+        });
 
 
     }
@@ -45,21 +79,139 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
         return subjectList.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView textView;
+        ImageView addSession;
+        ImageView seeProgress;
 
-          public MyViewHolder(@NonNull View itemView) {
-              super(itemView);
-              textView=itemView.findViewById(R.id.txtName);
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textView = itemView.findViewById(R.id.txtName);
+            addSession = itemView.findViewById(R.id.addSession_ImageView);
+            seeProgress = itemView.findViewById(R.id.seeProgress_ImageView);
 
-              textView.setOnClickListener(new View.OnClickListener() {
-                  @Override
-                  public void onClick(View v) {
-                      // rooye har dars click kard chi beshe?
 
-                  }
-              });
-          }
-      }
+            addSession.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    addingSessionDialog.show();
+                }
+            });
+            //       initDialogAddSession();
+
+        }
+
+
+        public void initDialogAddSession(final String name) {
+
+            sessionDialogBuilder = new MaterialDialog.Builder(context);
+            sessionDialogBuilder.customView(R.layout.addig_session_dialog_layout, false);
+            addingSessionDialog = sessionDialogBuilder.build();
+
+            Button btnBackAddSessionDialog = (Button) addingSessionDialog.findViewById(R.id.btn_Back_AddSession_Dialog);
+            Button btnSaveBackAddSessionDialog = (Button) addingSessionDialog.findViewById(R.id.btn_Save_AddSession_Dialog);
+            final TextView enjoytxt = (TextView) addingSessionDialog.findViewById(R.id.edt_AddSession_Dialog_enjoy);
+            final EditText hourEdt = (EditText) addingSessionDialog.findViewById(R.id.edt_AddSession_Dialog_hour);
+            final EditText qualityEdt = (EditText) addingSessionDialog.findViewById(R.id.edt_AddSession_Dialog_quality);
+            final int[] satisfaction = new int[1];
+
+
+            btnBackAddSessionDialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addingSessionDialog.dismiss(); //behtare ke aval soal beporse ke yeho etellat pak nashe // va mitoni az handler mesle code exit stefadeh koni
+                }
+            });
+
+
+            //baraye har emogy yek adad dar nazar gereftam ke nemoodare stisfactiono badan neshoon bedam
+            ImageView veryBadImV = (ImageView) addingSessionDialog.findViewById(R.id.veryBad_session_Emogy);
+
+            veryBadImV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    satisfaction[0] = 10;
+                }
+            });
+
+
+            ImageView badImV = (ImageView) addingSessionDialog.findViewById(R.id.bad_session_Emogy);
+            badImV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    satisfaction[0] = 35;
+                }
+            });
+            ImageView sosSoImV = (ImageView) addingSessionDialog.findViewById(R.id.soSo_session_Emogy);
+            sosSoImV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    satisfaction[0] = 60;
+                }
+            });
+            ImageView goodImV = (ImageView) addingSessionDialog.findViewById(R.id.good_session_Emogy);
+            goodImV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    satisfaction[0] = 80;
+                }
+            });
+            ImageView veryGoodImV = (ImageView) addingSessionDialog.findViewById(R.id.veryGood_session_Emogy);
+            veryGoodImV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    satisfaction[0] = 100;
+                }
+            });
+            final int satis = satisfaction[0];
+
+            final List<DatabaseModelTwo> list = new ArrayList<>();
+
+            btnSaveBackAddSessionDialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String d =Core.getTime();
+                    if (enjoytxt.getText().toString().equals("")) {
+                        enjoytxt.setError("is Empty...");
+                    } else if (hourEdt.getText().toString().equals("")) {
+                        hourEdt.setError("is Empty...");
+                    }
+                    if (qualityEdt.getText().toString().equals("")) {
+                        qualityEdt.setError("is Empty...");
+                    } else {
+
+
+                        list.add(new DatabaseModelTwo(
+                                name ,
+                                satis,
+                                Integer.valueOf(hourEdt.getText().toString()),
+                                Integer.valueOf(qualityEdt.getText().toString()),
+                                d
+                        ));
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                sqLiteDBHelper.insertAddSEssion(list);
+                            }
+                        }).start();
+
+                        addingSessionDialog.dismiss();
+                    }
+
+                }
+            });
+
+            addingSessionDialog.show();
+
+        }
+
+
+    }
+
+
 }

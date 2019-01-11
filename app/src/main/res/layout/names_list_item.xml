@@ -42,6 +42,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/addSession_ImageView"
                     android:padding="4dp"
                     android:src="@drawable/icon_access"
                     android:layout_toEndOf="@+id/txtName"
@@ -50,6 +51,7 @@
                     android:layout_height="40dp" />
 
                 <ImageView
+                    android:id="@+id/seeProgress_ImageView"
                     android:padding="4dp"
                     android:layout_toEndOf="@+id/txtName"
                     android:src="@drawable/icon_show_chart"

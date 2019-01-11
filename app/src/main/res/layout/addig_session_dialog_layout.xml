@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f7f5f5">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <LinearLayout
+            android:weightSum="2"
+            android:elevation="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:id="@+id/btn_Back_AddSession_Dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="back"/>
+
+            <Button
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:id="@+id/btn_Save_AddSession_Dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="save"
+                />
+        </LinearLayout>
+
+
+
+                <TextView
+                    android:id="@+id/edt_AddSession_Dialog_enjoy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="How was the the session?"
+                    android:padding="10dp"
+                    android:textSize="18dp"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/veryBad_session_Emogy"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_very_bad_black_24dp"
+                        android:layout_width="40dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="40dp" />
+
+                    <ImageView
+                        android:id="@+id/bad_session_Emogy"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_sad_face_dissatisfied_black_24dp"
+                        android:layout_width="40dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="40dp" />
+
+                    <ImageView
+                        android:id="@+id/soSo_session_Emogy"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_not_bad_neutral_black_24dp"
+                        android:layout_width="40dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="40dp" />
+
+
+                    <ImageView
+                        android:id="@+id/good_session_Emogy"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_smile_face_satisfied_black_24dp"
+                        android:layout_width="40dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="40dp" />
+
+                    <ImageView
+                        android:id="@+id/veryGood_session_Emogy"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_the_best_ever_satisfied_black_24dp"
+                        android:layout_width="40dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="40dp" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/edt_AddSession_Dialog_hour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:hint="Hours this sesson"
+                    android:inputType="number"
+                    android:padding="10dp" />
+
+                <EditText
+                    android:id="@+id/edt_AddSession_Dialog_quality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:hint="quality of this session from 1 to 10"
+                    android:inputType="number"
+                    android:padding="10dp" />
+
+
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
