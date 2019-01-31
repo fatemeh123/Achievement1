@@ -29,13 +29,13 @@ import static java.lang.Thread.sleep;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private MaterialDialog.Builder mBuilder;
+    private MaterialDialog.Builder mBuilder;   // dialog for adding  subject
     private MaterialDialog mDialog;
     private SQLiteDBHelper sqLiteDBHelper;
 
-    private MaterialDialog.Builder sessionDialogBuilder;
+    private MaterialDialog.Builder sessionDialogBuilder;   // dialog for adding session
     private MaterialDialog addingSessionDialog;
-
+                                                            //dialog for showing charts
 
     Boolean hasUserClickedOnBack=false;
     @Override
@@ -81,7 +81,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private void initDialog(){
 
-        AppCompatButton btnBackAddingDialog = (AppCompatButton) mDialog.findViewById(R.id.btnBackAddingDialog);
+        Button btnBackAddingDialog = (Button) mDialog.findViewById(R.id.btnBackAddingDialog);
         Button btnSaveBackAddingDialog = (Button) mDialog.findViewById(R.id.btnSaveBackAddingDialog);
         final EditText edtAddingDialogSubjName = (EditText) mDialog.findViewById(R.id.edtAddingDialogSubjName) ;
         final EditText edtAddingDialogSubjPriority = (EditText) mDialog.findViewById(R.id.edtAddingDialogSubjPriority) ;
@@ -147,6 +147,11 @@ public class MenuActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(MenuActivity.this,LinearLayout.VERTICAL,false));
     }
 
+
+
+    /*
+         if the user clicked on back
+    */
     @Override
     public void onBackPressed() {
 

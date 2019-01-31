@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e5e5e5"
     tools:context=".MenuActivity">
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -19,6 +21,9 @@
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:tint="#fff"
+            app:fabSize="normal"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -28,14 +33,15 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
+            android:layout_below="@+id/firstClickFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginBottom="50dp">
 
         </android.support.v7.widget.RecyclerView>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <LinearLayout

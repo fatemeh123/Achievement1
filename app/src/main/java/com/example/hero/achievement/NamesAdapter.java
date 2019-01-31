@@ -1,15 +1,16 @@
 package com.example.hero.achievement;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -25,7 +26,8 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
 
 
     List<DatabaseModel1> subjectList = new LinkedList<>(); //vase delete kardan rahat tare
-    private SQLiteDBHelper sqLiteDBHelper;
+    private SQLiteDBHelper sqLiteDBHelper;//mikhaym list haye zakhire shodaro beigirm
+
 
     //List<DatabaseModelTwo>
     TextView textView;
@@ -85,7 +87,7 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
         ImageView addSession;
         ImageView seeProgress;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull final View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.txtName);
             addSession = itemView.findViewById(R.id.addSession_ImageView);
@@ -95,19 +97,37 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
             addSession.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("star","onClick ");
 
                     addingSessionDialog.show();
                 }
             });
-            //       initDialogAddSession();
+
+
+
+
+            seeProgress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("star","onClick ");
+                    Intent intent = new Intent (v.getContext(), ChartDialogActivity.class);
+
+                 // itemView.getContext().startActivity(new Intent(v.getContext(), ChartDialogActivity.class));  // bejaye Intent intent=new Intent()
+                    context.startActivity(intent);
+                }
+            });
 
         }
 
-
+/*
+zakhire sazie etellate  DialogAddSession too data base
+ */
         public void initDialogAddSession(final String name) {
 
             sessionDialogBuilder = new MaterialDialog.Builder(context);
-            sessionDialogBuilder.customView(R.layout.addig_session_dialog_layout, false);
+            sessionDialogBuilder.customView(R.layout.addig_session_dialog_layout, false)
+                    .autoDismiss(false)
+                    .cancelable(false);
             addingSessionDialog = sessionDialogBuilder.build();
 
             Button btnBackAddSessionDialog = (Button) addingSessionDialog.findViewById(R.id.btn_Back_AddSession_Dialog);

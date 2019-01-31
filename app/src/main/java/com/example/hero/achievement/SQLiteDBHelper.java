@@ -20,6 +20,8 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
     private static final String dbPath = local + "/Android/";
 
     private static final String DATABASE_NAME = dbPath + "Amozesh.db";
+    private static final String DATABASE_NAME_2 = "Amozesh.db";
+
     private static final int VERSION_NAME = 1;
     private SQLiteDatabase database;
 
@@ -45,7 +47,7 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
             ")";
 
     public SQLiteDBHelper(Context context) {
-        super(context, DATABASE_NAME, null, VERSION_NAME);
+        super(context, DATABASE_NAME_2, null, VERSION_NAME);
         this.database = getWritableDatabase();
     }
 
@@ -112,10 +114,9 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
                 list.get(0).getSubjectName() + "'," +
                 list.get(0).getSatisfaction() + "," +
                 list.get(0).getHour() + "," +
-                list.get(0).getQuality() +"," +
+                list.get(0).getQuality() +",'" +
                 list.get(0).getdate() +
-
-                ")";
+                "')";
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(insertSessionToDB);
@@ -149,7 +150,9 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
         return list;
     }
 
-
+/*
+baraye gereftane etelaate kole jadval
+ */
     public  List<DatabaseModelTwo> getSessionTable(){
 
 
@@ -177,6 +180,36 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
 
             return sessionList;
     }
+/*
+    public  List<Integer> getSessionTime(String subject_name){
 
 
+        List<DatabaseModelTwo> sessionList=new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor all  = db.rawQuery("SELECT * FROM " +  TABLE_NAME_session ,null);
+
+
+        if(all.moveToFirst()){
+            do{
+                int id      = all.getInt(0);
+                String s1   = all.getString(1);
+                int i1      = all.getInt(3);
+                int i2      = all.getInt(4);
+                int i3      = all.getInt(5);
+                String d1   = all.getString(2);
+
+
+                sessionList.add(new DatabaseModelTwo(s1,i1,i2,i3,d1));
+            }
+            while(all.moveToNext());
+        }
+
+
+        db.close();
+
+        return 0;
+    }
+
+*/
 }

@@ -1,10 +1,13 @@
 package com.example.hero.achievement;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
 
    }
+
 }
 
 /*
