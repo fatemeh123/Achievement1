@@ -9,6 +9,7 @@ import android.os.Environment;
 import  android.support.annotation.Nullable;
 
 import com.example.hero.achievement.model.DatabaseModel1;
+import com.example.hero.achievement.modeltwo.DatabaseModelChart;
 import com.example.hero.achievement.modeltwo.DatabaseModelTwo;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
     private static final String local = Environment.getExternalStorageDirectory().getAbsolutePath();
     private static final String dbPath = local + "/Android/";
 
-    private static final String DATABASE_NAME = dbPath + "Amozesh.db";
+   // private static final String DATABASE_NAME = dbPath + "Amozesh.db";
     private static final String DATABASE_NAME_2 = "Amozesh.db";
 
     private static final int VERSION_NAME = 1;
@@ -51,6 +52,9 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
         this.database = getWritableDatabase();
     }
 
+    /*
+    delete a table if it exists
+     */
     public void dropTable(SQLiteDatabase db){
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_subject);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_session);
@@ -180,27 +184,23 @@ baraye gereftane etelaate kole jadval
 
             return sessionList;
     }
-/*
-    public  List<Integer> getSessionTime(String subject_name){
 
+    public  List<DatabaseModelChart> getSessionDateAndHour(String subject_name){
 
-        List<DatabaseModelTwo> sessionList=new ArrayList<>();
+        String query = "SELECT * FROM  " +  TABLE_NAME_session + " WHERE subjectName = '" + subject_name + "'";
+
+        List<DatabaseModelChart> sessionList = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor all  = db.rawQuery("SELECT * FROM " +  TABLE_NAME_session ,null);
-
+        Cursor all  = db.rawQuery(query,null);
 
         if(all.moveToFirst()){
             do{
-                int id      = all.getInt(0);
-                String s1   = all.getString(1);
-                int i1      = all.getInt(3);
-                int i2      = all.getInt(4);
-                int i3      = all.getInt(5);
-                String d1   = all.getString(2);
 
+                String date   = all.getString(0);
+                int hourPerSession     = all.getInt(1);
 
-                sessionList.add(new DatabaseModelTwo(s1,i1,i2,i3,d1));
+                sessionList.add(new DatabaseModelChart(date,hourPerSession));
             }
             while(all.moveToNext());
         }
@@ -208,8 +208,8 @@ baraye gereftane etelaate kole jadval
 
         db.close();
 
-        return 0;
+        return sessionList;
     }
 
-*/
+
 }

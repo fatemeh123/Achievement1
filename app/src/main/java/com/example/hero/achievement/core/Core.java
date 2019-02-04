@@ -40,7 +40,9 @@ public class Core extends Application {
         String s = ss.format(new Date());
 
         //return y + "." + mm + "." + d + "_" + h + "." + m + "." + s;
-        return h +":" + m + ":" + s;
+        //return h +":" + m + ":" + s;
+
+        return y + "." + mm + "." + d ;
 
     }
 

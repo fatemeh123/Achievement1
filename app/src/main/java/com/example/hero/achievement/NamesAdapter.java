@@ -30,13 +30,13 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
 
 
     //List<DatabaseModelTwo>
-    TextView textView;
-    ImageView addSession;
-    ImageView seeProgress;
+    TextView textView;     ///////////////////////
+    ImageView addSession; ///////////////////////
+    ImageView seeProgress;///////////////////////
     private final Context context;
 
-    private MaterialDialog.Builder sessionDialogBuilder;
-    private MaterialDialog addingSessionDialog;
+    private MaterialDialog.Builder sessionDialogBuilder;///////////////////////
+    private MaterialDialog addingSessionDialog;///////////////////////
 
     NamesAdapter(Context context1, List<DatabaseModel1> subjects) {
 
@@ -63,7 +63,7 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
-        myViewHolder.textView.setText(subjectList.get(position).getSubjectName() + position);
+        myViewHolder.textView.setText(subjectList.get(position).getSubjectName() );
 
 
         myViewHolder.addSession.setOnClickListener(new View.OnClickListener() {
@@ -89,9 +89,9 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
 
         public MyViewHolder(@NonNull final View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.txtName);
-            addSession = itemView.findViewById(R.id.addSession_ImageView);
-            seeProgress = itemView.findViewById(R.id.seeProgress_ImageView);
+            textView = itemView.findViewById(R.id.txtName); ///////////////////////
+            addSession = itemView.findViewById(R.id.addSession_ImageView);///////////////////////
+            seeProgress = itemView.findViewById(R.id.seeProgress_ImageView);///////////////////////
 
 
             addSession.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +130,7 @@ zakhire sazie etellate  DialogAddSession too data base
                     .cancelable(false);
             addingSessionDialog = sessionDialogBuilder.build();
 
-            Button btnBackAddSessionDialog = (Button) addingSessionDialog.findViewById(R.id.btn_Back_AddSession_Dialog);
+            Button  btnBackAddSessionDialog = (Button) addingSessionDialog.findViewById(R.id.btn_Back_AddSession_Dialog);
             Button btnSaveBackAddSessionDialog = (Button) addingSessionDialog.findViewById(R.id.btn_Save_AddSession_Dialog);
             final TextView enjoytxt = (TextView) addingSessionDialog.findViewById(R.id.edt_AddSession_Dialog_enjoy);
             final EditText hourEdt = (EditText) addingSessionDialog.findViewById(R.id.edt_AddSession_Dialog_hour);
@@ -147,7 +147,12 @@ zakhire sazie etellate  DialogAddSession too data base
 
 
             //baraye har emogy yek adad dar nazar gereftam ke nemoodare stisfactiono badan neshoon bedam
-            ImageView veryBadImV = (ImageView) addingSessionDialog.findViewById(R.id.veryBad_session_Emogy);
+            ImageView veryBadImV        =  (ImageView) addingSessionDialog.findViewById(R.id.veryBad_session_Emogy);
+            ImageView badImV            = (ImageView) addingSessionDialog.findViewById(R.id.bad_session_Emogy);
+            ImageView sosSoImV          = (ImageView) addingSessionDialog.findViewById(R.id.soSo_session_Emogy);
+            ImageView goodImV           = (ImageView) addingSessionDialog.findViewById(R.id.good_session_Emogy);
+            ImageView veryGoodImV       = (ImageView) addingSessionDialog.findViewById(R.id.veryGood_session_Emogy);
+
 
             veryBadImV.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -155,36 +160,31 @@ zakhire sazie etellate  DialogAddSession too data base
                     satisfaction[0] = 10;
                 }
             });
-
-
-            ImageView badImV = (ImageView) addingSessionDialog.findViewById(R.id.bad_session_Emogy);
             badImV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     satisfaction[0] = 35;
                 }
             });
-            ImageView sosSoImV = (ImageView) addingSessionDialog.findViewById(R.id.soSo_session_Emogy);
             sosSoImV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     satisfaction[0] = 60;
                 }
             });
-            ImageView goodImV = (ImageView) addingSessionDialog.findViewById(R.id.good_session_Emogy);
             goodImV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     satisfaction[0] = 80;
                 }
             });
-            ImageView veryGoodImV = (ImageView) addingSessionDialog.findViewById(R.id.veryGood_session_Emogy);
             veryGoodImV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     satisfaction[0] = 100;
                 }
             });
+
             final int satis = satisfaction[0];
 
             final List<DatabaseModelTwo> list = new ArrayList<>();

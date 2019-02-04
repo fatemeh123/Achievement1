@@ -63,7 +63,7 @@ public class MenuActivity extends AppCompatActivity {
 
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);   //done
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
