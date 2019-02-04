@@ -25,18 +25,11 @@ import java.util.List;
 public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder> {
 
 
-    List<DatabaseModel1> subjectList = new LinkedList<>(); //vase delete kardan rahat tare
-    private SQLiteDBHelper sqLiteDBHelper;//mikhaym list haye zakhire shodaro beigirm
-
-
-    //List<DatabaseModelTwo>
-    TextView textView;     ///////////////////////
-    ImageView addSession; ///////////////////////
-    ImageView seeProgress;///////////////////////
+    List<DatabaseModel1> subjectList = new LinkedList<>();              //vase delete kardan rahat tare
+    private SQLiteDBHelper sqLiteDBHelper;                              //mikhaym list haye zakhire shodaro beigirm
     private final Context context;
-
-    private MaterialDialog.Builder sessionDialogBuilder;///////////////////////
-    private MaterialDialog addingSessionDialog;///////////////////////
+    private MaterialDialog.Builder sessionDialogBuilder;
+    private MaterialDialog addingSessionDialog;
 
     NamesAdapter(Context context1, List<DatabaseModel1> subjects) {
 
@@ -89,9 +82,9 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
 
         public MyViewHolder(@NonNull final View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.txtName); ///////////////////////
-            addSession = itemView.findViewById(R.id.addSession_ImageView);///////////////////////
-            seeProgress = itemView.findViewById(R.id.seeProgress_ImageView);///////////////////////
+            textView = itemView.findViewById(R.id.txtName);
+            addSession = itemView.findViewById(R.id.addSession_ImageView);
+            seeProgress = itemView.findViewById(R.id.seeProgress_ImageView);
 
 
             addSession.setOnClickListener(new View.OnClickListener() {

@@ -197,7 +197,7 @@ baraye gereftane etelaate kole jadval
         if(all.moveToFirst()){
             do{
 
-                String date   = all.getString(0);
+                String date            = all.getString(0);
                 int hourPerSession     = all.getInt(1);
 
                 sessionList.add(new DatabaseModelChart(date,hourPerSession));
