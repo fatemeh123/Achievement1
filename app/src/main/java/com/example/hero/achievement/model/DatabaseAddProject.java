@@ -1,13 +1,13 @@
 package com.example.hero.achievement.model;
 
-public class DatabaseModel1 {
+public class DatabaseAddProject {
 
     private String subjectName;
     private int priority;
     private int daysPerWeek;
     private int hoursPerSession;
 
-    public DatabaseModel1(String subjectName, int priority, int daysPerWeek, int hoursPerSession) {
+    public DatabaseAddProject(String subjectName, int priority, int daysPerWeek, int hoursPerSession) {
         this.subjectName = subjectName;
         this.priority = priority;
         this.daysPerWeek = daysPerWeek;

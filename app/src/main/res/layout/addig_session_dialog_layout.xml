@@ -59,8 +59,17 @@
                 android:text="save"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="257dp"
+            android:orientation="vertical">
+            <CalendarView
+                android:id="@+id/my_calender"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></CalendarView>
 
 
+        </LinearLayout>
 
                 <TextView
                     android:id="@+id/edt_AddSession_Dialog_enjoy"

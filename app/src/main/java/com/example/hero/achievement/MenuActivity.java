@@ -1,25 +1,20 @@
 package com.example.hero.achievement;
 
 import android.os.Handler;
-import android.support.design.button.MaterialButton;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.hero.achievement.core.Core;
-import com.example.hero.achievement.model.DatabaseModel1;
-import com.example.hero.achievement.modeltwo.DatabaseModelTwo;
+import com.example.hero.achievement.model.DatabaseAddProject;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -32,19 +27,17 @@ public class MenuActivity extends AppCompatActivity {
     private MaterialDialog.Builder mBuilder;   // dialog for adding  subject
     private MaterialDialog mDialog;
     private SQLiteDBHelper sqLiteDBHelper;
-
-    private MaterialDialog.Builder sessionDialogBuilder;   // dialog for adding session
+    private MaterialDialog.Builder sessionDialogBuilder;         // dialog for adding session
     private MaterialDialog addingSessionDialog;
-                                                            //dialog for showing charts
+                                                                 //dialog for showing charts
 
     Boolean hasUserClickedOnBack=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        LinkedList<String> subjectList=new LinkedList<>();        //liste darsa ke har bar ba click kardan rooye fab betoone bhesh ezafe kone
 
-        //liste darsa ke har bar ba click kardan rooye fab betoone bhesh ezafe kone
-        LinkedList<String> subjectList=new LinkedList<>();
         sqLiteDBHelper = new SQLiteDBHelper(this);
         //sqLiteDBHelper.dropTable(sqLiteDBHelper.getDatabase());
 
@@ -114,8 +107,8 @@ public class MenuActivity extends AppCompatActivity {
                 }
                 else {
 
-                    List<DatabaseModel1> list = new ArrayList<>();
-                    list.add(new DatabaseModel1(//Core.getTime(),
+                    List<DatabaseAddProject> list = new ArrayList<>();
+                    list.add(new DatabaseAddProject(//Core.getTime(),
                             edtAddingDialogSubjName.getText().toString() ,
                             Integer.valueOf(edtAddingDialogSubjPriority.getText().toString()) ,
                             Integer.valueOf(edtAddingDialogDayPerWeek.getText().toString()),
@@ -138,7 +131,7 @@ public class MenuActivity extends AppCompatActivity {
 
         // وقتی دیتا رو درست وارد کردی یبار دیگه این متد رو صدا میکنی
 
-        List<DatabaseModel1> list = sqLiteDBHelper.getTable();
+        List<DatabaseAddProject> list = sqLiteDBHelper.getTable();
 
 
         RecyclerView recycler = findViewById(R.id.recycler);

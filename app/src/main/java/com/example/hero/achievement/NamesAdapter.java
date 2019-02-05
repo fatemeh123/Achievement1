@@ -9,14 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.example.hero.achievement.core.Core;
-import com.example.hero.achievement.model.DatabaseModel1;
-import com.example.hero.achievement.modeltwo.DatabaseModelTwo;
+import com.example.hero.achievement.model.DatabaseAddProject;
+import com.example.hero.achievement.modeltwo.DatabaseAddSession;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,13 +25,13 @@ import java.util.List;
 public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder> {
 
 
-    List<DatabaseModel1> subjectList = new LinkedList<>();              //vase delete kardan rahat tare
+    List<DatabaseAddProject> subjectList = new LinkedList<>();              //vase delete kardan rahat tare
     private SQLiteDBHelper sqLiteDBHelper;                              //mikhaym list haye zakhire shodaro beigirm
     private final Context context;
     private MaterialDialog.Builder sessionDialogBuilder;
     private MaterialDialog addingSessionDialog;
 
-    NamesAdapter(Context context1, List<DatabaseModel1> subjects) {
+    NamesAdapter(Context context1, List<DatabaseAddProject> subjects) {
 
         context = context1;
         subjectList = subjects;
@@ -122,6 +122,7 @@ zakhire sazie etellate  DialogAddSession too data base
                     .autoDismiss(false)
                     .cancelable(false);
             addingSessionDialog = sessionDialogBuilder.build();
+            final CalendarView calendarView = (CalendarView) addingSessionDialog.findViewById(R.id.my_calender);
 
             Button  btnBackAddSessionDialog = (Button) addingSessionDialog.findViewById(R.id.btn_Back_AddSession_Dialog);
             Button btnSaveBackAddSessionDialog = (Button) addingSessionDialog.findViewById(R.id.btn_Save_AddSession_Dialog);
@@ -180,13 +181,15 @@ zakhire sazie etellate  DialogAddSession too data base
 
             final int satis = satisfaction[0];
 
-            final List<DatabaseModelTwo> list = new ArrayList<>();
+            final List<DatabaseAddSession> list = new ArrayList<>();
 
             btnSaveBackAddSessionDialog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    String d =Core.getTime();
+
+                    String d= String.valueOf(calendarView.getDate());
+
                     if (enjoytxt.getText().toString().equals("")) {
                         enjoytxt.setError("is Empty...");
                     } else if (hourEdt.getText().toString().equals("")) {
@@ -197,7 +200,7 @@ zakhire sazie etellate  DialogAddSession too data base
                     } else {
 
 
-                        list.add(new DatabaseModelTwo(
+                        list.add(new DatabaseAddSession(
                                 name ,
                                 satis,
                                 Integer.valueOf(hourEdt.getText().toString()),

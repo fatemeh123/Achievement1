@@ -1,6 +1,9 @@
 package com.example.hero.achievement.modeltwo;
 
-public class DatabaseModelTwo {
+/***
+ * Database for adding sessions
+ */
+public class DatabaseAddSession {
 
     private String subjectName;
     private int satisfaction;
@@ -8,7 +11,7 @@ public class DatabaseModelTwo {
     private int quality;
     private String date;
 
-    public DatabaseModelTwo(String subjectName , int satisfaction, int hour, int quality , String date) {
+    public DatabaseAddSession(String subjectName , int satisfaction, int hour, int quality , String date) {
         this.subjectName = subjectName;
         this.satisfaction = satisfaction;
         this.hour = hour;

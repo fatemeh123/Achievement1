@@ -2,15 +2,13 @@ package com.example.hero.achievement;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
-import  android.support.annotation.Nullable;
 
-import com.example.hero.achievement.model.DatabaseModel1;
+import com.example.hero.achievement.model.DatabaseAddProject;
 import com.example.hero.achievement.modeltwo.DatabaseModelChart;
-import com.example.hero.achievement.modeltwo.DatabaseModelTwo;
+import com.example.hero.achievement.modeltwo.DatabaseAddSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +89,7 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
  /*
  barrye gerreftane etelaat e har dars
   */
-    public void insertSubjects(List<DatabaseModel1> list) {
+    public void insertSubjects(List<DatabaseAddProject> list) {
 
         String insertSubjectToDB = "" +
                 "INSERT INTO " + TABLE_NAME_subject +
@@ -110,7 +108,7 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
 
     }
 
-    public void insertAddSEssion(List<DatabaseModelTwo> list) {
+    public void insertAddSEssion(List<DatabaseAddSession> list) {
 
         String insertSessionToDB = "INSERT INTO " + TABLE_NAME_session +
                 "(subjectName,satisfaction,hour,quality,date)" +
@@ -130,9 +128,9 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
     /*
     baraye khoondan az database
      */
-    public List<DatabaseModel1> getTable(){
+    public List<DatabaseAddProject> getTable(){
 
-        List<DatabaseModel1> list = new ArrayList<>();
+        List<DatabaseAddProject> list = new ArrayList<>();
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -146,7 +144,7 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
                 int i2      = all.getInt(3);
                 int i3      = all.getInt(4);
 
-                list.add(new DatabaseModel1(s1 , i1 , i2 , i3));
+                list.add(new DatabaseAddProject(s1 , i1 , i2 , i3));
             }
             while(all.moveToNext());
         }
@@ -157,10 +155,10 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
 /*
 baraye gereftane etelaate kole jadval
  */
-    public  List<DatabaseModelTwo> getSessionTable(){
+    public  List<DatabaseAddSession> getSessionTable(){
 
 
-        List<DatabaseModelTwo> sessionList=new ArrayList<>();
+        List<DatabaseAddSession> sessionList=new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor all  = db.rawQuery("SELECT * FROM " +  TABLE_NAME_session , null);
@@ -176,7 +174,7 @@ baraye gereftane etelaate kole jadval
                 String d1   = all.getString(2);
 
 
-                sessionList.add(new DatabaseModelTwo(s1,i1,i2,i3,d1));
+                sessionList.add(new DatabaseAddSession(s1,i1,i2,i3,d1));
             }
             while(all.moveToNext());
         }
