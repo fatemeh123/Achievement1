@@ -1,6 +1,7 @@
 package com.example.hero.achievement;
 
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,7 +51,6 @@ public class MenuActivity extends AppCompatActivity {
         mDialog=mBuilder.build();
 //        mDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dialog)); //vase inke kenaraye dialog gerd beshe
 
-        initRecyclerView();
 
 
         FloatingActionButton fab = findViewById(R.id.fab);   //done
@@ -64,12 +64,14 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        initDialog();
+        initRecyclerView(fab);
+
+        initDialog(fab);
 
     }
 
 
-    private void initDialog(){
+    private void initDialog(final FloatingActionButton floatingActionButton){
 
         Button btnBackAddingDialog = (Button) mDialog.findViewById(R.id.btnBackAddingDialog);
         Button btnSaveBackAddingDialog = (Button) mDialog.findViewById(R.id.btnSaveBackAddingDialog);
@@ -99,13 +101,17 @@ public class MenuActivity extends AppCompatActivity {
                 else if (edtAddingDialogDayPerWeek.getText().toString().equals("")){
                     edtAddingDialogDayPerWeek.setError("is Empty...");
                 }
+                else if (!edtAddingDialogDayPerWeek.getText().toString().matches("(0-7)")) {
+                    edtAddingDialogDayPerWeek.setError("It must be between 0 to 7 days...");
+                }
                 else if (edtAddingDialogHourPerDay.getText().toString().equals("")){
                     edtAddingDialogHourPerDay.setError("is Empty...");
+                }     else if (!edtAddingDialogHourPerDay.getText().toString().matches("(0-24)")) {
+                    edtAddingDialogHourPerDay.setError("it must be between 0 to 24 hours...");
                 }
                 else {
-
                     List<DatabaseAddProject> list = new ArrayList<>();
-                    list.add(new DatabaseAddProject(//Core.getTime(),
+                    list.add(new DatabaseAddProject(
                             edtAddingDialogSubjName.getText().toString() ,
                             Integer.valueOf(edtAddingDialogSubjPriority.getText().toString()) ,
                             Integer.valueOf(edtAddingDialogDayPerWeek.getText().toString()),
@@ -118,7 +124,7 @@ public class MenuActivity extends AppCompatActivity {
                     sqLiteDBHelper.insertSubjects(list);
 
                     mDialog.dismiss();
-                    initRecyclerView();
+                    initRecyclerView(floatingActionButton);
 
                 }
             }
@@ -126,7 +132,7 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView(final FloatingActionButton fab){
 
         // وقتی دیتا رو درست وارد کردی یبار دیگه این متد رو صدا میکنی
 
@@ -137,6 +143,28 @@ public class MenuActivity extends AppCompatActivity {
         NamesAdapter adapter = new NamesAdapter(MenuActivity.this,list);
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(MenuActivity.this,LinearLayout.VERTICAL,false));
+
+        fab.show();
+
+        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dx > dy){
+                    fab.show();
+                }
+                else {
+                    fab.hide();
+                }
+            }
+        });
+
     }
 
 

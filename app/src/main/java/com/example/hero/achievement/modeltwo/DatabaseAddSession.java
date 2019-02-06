@@ -1,5 +1,7 @@
 package com.example.hero.achievement.modeltwo;
 
+import android.util.Log;
+
 /***
  * Database for adding sessions
  */
@@ -17,6 +19,9 @@ public class DatabaseAddSession {
         this.hour = hour;
         this.quality = quality;
         this.date=date;
+        Log.d("star","fatemeh is logging. satisfaction: "+satisfaction + "subjectnName:" + subjectName + "quality" + quality+
+        "date: " + date);
+
     }
 
     public void setSubjectName(String subjectame) {

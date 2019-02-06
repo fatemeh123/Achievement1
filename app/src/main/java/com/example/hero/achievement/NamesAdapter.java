@@ -38,6 +38,7 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
     private String month0;
     private String year0;
     CalendarView calendarView;
+    private boolean stateDate = false;
 
     //for AddSessionDialog
     ImageView veryBadImV   ;
@@ -73,6 +74,7 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
         myViewHolder.textView.setText(subjectList.get(position).getSubjectName() );
 
 
+
         myViewHolder.addSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +82,14 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
             }
         });
 
+        myViewHolder.seeProgress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,ChartDialogActivity.class);
+                intent.putExtra("subject" , subjectList.get(position).getSubjectName());
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -148,12 +158,12 @@ zakhire sazie etellate  DialogAddSession too data base
                     int y = year;
                     year0 = String.valueOf(year);
 
+                    stateDate = true;
+
                 }
             });
             calender = (day+'/'+month0+'/'+year0);
-            if (calender.equals(""+'/'+""+'/'+""+'/')) {      //if no date selected , save today
-                calender = Core.getTime();
-            }
+
 
 
 
@@ -196,7 +206,7 @@ zakhire sazie etellate  DialogAddSession too data base
                 }
             });
 
-            final int satis = satisfaction[0];
+            final int satisfactionLevel = satisfaction[0];
 
             final List<DatabaseAddSession> list = new ArrayList<>();
 
@@ -205,20 +215,35 @@ zakhire sazie etellate  DialogAddSession too data base
                 public void onClick(View v) {
 
 
+                    if (!stateDate) {      //if no date selected , save today
+                        calender = Core.getTime();
+                    }
+
+
+
+
                     if (enjoytxt.getText().toString().equals("")) {
                         enjoytxt.setError("is Empty...");
-                    } else if (hourEdt.getText().toString().equals("")) {
+                    }
+                    else if (!hourEdt.getText().toString().matches("(0-24)")) {
+                        hourEdt.setError("is Ridiculous...");
+                    }
+
+                    else if (hourEdt.getText().toString().equals("")) {
                         hourEdt.setError("is Empty...");
                     }
-                    if (qualityEdt.getText().toString().equals("")) {
+                    else if (!qualityEdt.getText().toString().matches("(0-10)")) {
+                        qualityEdt.setError("is Ridiculous...");
+                    }
+                    else if (qualityEdt.getText().toString().equals("")) {
                         qualityEdt.setError("is Empty...");
                     } else {
 
-                    Log.d("star","database ok **********************_________________----------- ");
+                    Log.d("star","database ok  ");
 
                         list.add(new DatabaseAddSession(
                                 name ,
-                                satis,
+                                satisfactionLevel,
                                 Integer.valueOf(hourEdt.getText().toString()),
                                 Integer.valueOf(qualityEdt.getText().toString()),
                                 calender
@@ -242,8 +267,8 @@ zakhire sazie etellate  DialogAddSession too data base
 
         }
 
-
     }
+
     public void init(){
         sessionDialogBuilder = new MaterialDialog.Builder(context);
         sessionDialogBuilder.customView(R.layout.addig_session_dialog_layout, false)

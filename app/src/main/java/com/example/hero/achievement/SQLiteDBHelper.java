@@ -18,16 +18,16 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
     private static final String local = Environment.getExternalStorageDirectory().getAbsolutePath();
     private static final String dbPath = local + "/Android/";
 
-   // private static final String DATABASE_NAME = dbPath + "Amozesh.db";
+    private static final String DATABASE_NAME = dbPath + "Fatemeh.db";
     private static final String DATABASE_NAME_2 = "Amozesh.db";
 
     private static final int VERSION_NAME = 1;
     private SQLiteDatabase database;
 
-    String TABLE_NAME_subject = "Projects";
-    String TABLE_NAME_session = "Session";
+    String TABLE_NAME_SUBJECT = "Projects";
+    String TABLE_NAME_SESSION = "Session";
 
-    String create_table_subjects = " CREATE TABLE " + TABLE_NAME_subject + " (" +
+    String create_table_subjects = " CREATE TABLE " + TABLE_NAME_SUBJECT + " (" +
             " _id INTEGER PRIMARY KEY AUTOINCREMENT ," +
             "subjectName TEXT ," +
             "priority INTEGER ," +
@@ -35,7 +35,8 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
             "hoursPerSession INTEGER " +
             ")";
 
-    String create_table_add_session = " CREATE TABLE " + TABLE_NAME_session + "(" +
+    // TODO: When refactoring, change naming of hour to duration
+    String create_table_add_session = " CREATE TABLE " + TABLE_NAME_SESSION + "(" +
             " _id INTEGER PRIMARY KEY AUTOINCREMENT ," +
             "subjectName TEXT ," +
             "satisfaction INTEGER ," +
@@ -54,8 +55,8 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
     delete a table if it exists
      */
     public void dropTable(SQLiteDatabase db){
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_subject);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_session);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_SUBJECT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_SESSION);
 
         onCreate(db);
     }
@@ -92,7 +93,7 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
     public void insertSubjects(List<DatabaseAddProject> list) {
 
         String insertSubjectToDB = "" +
-                "INSERT INTO " + TABLE_NAME_subject +
+                "INSERT INTO " + TABLE_NAME_SUBJECT +
                 "(subjectName,priority,daysPerWeek,hoursPerSession)" +
 
                 " VALUES ('" +
@@ -110,7 +111,7 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
 
     public void insertAddSEssion(List<DatabaseAddSession> list) {
 
-        String insertSessionToDB = "INSERT INTO " + TABLE_NAME_session +
+        String insertSessionToDB = "INSERT INTO " + TABLE_NAME_SESSION +
                 "(subjectName,satisfaction,hour,quality,date)" +
                 " VALUES ('" +
                 list.get(0).getSubjectName() + "'," +
@@ -134,7 +135,7 @@ public class SQLiteDBHelper  extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor all  = db.rawQuery("SELECT * FROM " +  TABLE_NAME_subject , null);
+        Cursor all  = db.rawQuery("SELECT * FROM " + TABLE_NAME_SUBJECT, null);
 
         if(all.moveToFirst()){
             do{
@@ -161,7 +162,7 @@ baraye gereftane etelaate kole jadval
         List<DatabaseAddSession> sessionList=new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor all  = db.rawQuery("SELECT * FROM " +  TABLE_NAME_session , null);
+        Cursor all  = db.rawQuery("SELECT * FROM " + TABLE_NAME_SESSION, null);
 
 
         if(all.moveToFirst()){
@@ -183,9 +184,9 @@ baraye gereftane etelaate kole jadval
             return sessionList;
     }
 
-    public  List<DatabaseModelChart> getSessionDateAndHour(String subject_name){
+    public  List<DatabaseModelChart> getSessionDateAndHour(String inputSubjectName){
 
-        String query = "SELECT * FROM  " +  TABLE_NAME_session + " WHERE subjectName = '" + subject_name + "'";
+        String query = "SELECT * FROM  " + TABLE_NAME_SESSION + " WHERE subjectName = '" + inputSubjectName + "'";
 
         List<DatabaseModelChart> sessionList = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -195,15 +196,13 @@ baraye gereftane etelaate kole jadval
         if(all.moveToFirst()){
             do{
 
-                String date            = all.getString(0);
-                int hourPerSession     = all.getInt(1);
+                String date      = all.getString(5);
+                int duration     = all.getInt(3);
 
-                sessionList.add(new DatabaseModelChart(date,hourPerSession));
+                sessionList.add(new DatabaseModelChart(date,duration));
             }
             while(all.moveToNext());
         }
-
-
         db.close();
 
         return sessionList;

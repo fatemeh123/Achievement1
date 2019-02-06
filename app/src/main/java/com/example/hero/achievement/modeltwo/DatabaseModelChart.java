@@ -2,27 +2,27 @@ package com.example.hero.achievement.modeltwo;
 
 public class DatabaseModelChart {
 
-    private String dateAndHour;
-    private int hour;
+    private String date;
+    private int duration;
 
     public DatabaseModelChart(String dateAndHour, int hour) {
-        this.dateAndHour = dateAndHour;
-        this.hour = hour;
+        this.date = dateAndHour;
+        this.duration = hour;
     }
 
-    public String getDateAndHour() {
-        return dateAndHour;
+    public String getDate() {
+        return date;
     }
 
-    public void setDateAndHour(String dateAndHour) {
-        this.dateAndHour = dateAndHour;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public int getHour() {
-        return hour;
+    public int getDuration() {
+        return duration;
     }
 
-    public void setHour(int hour) {
-        this.hour = hour;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }
