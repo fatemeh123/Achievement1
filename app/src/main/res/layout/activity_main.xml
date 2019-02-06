@@ -55,7 +55,8 @@
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Paassword" />
+            android:hint="Paassword"
+            android:inputType="numberPassword"/>
 
         <Button
             android:id="@+id/btnLogIn"

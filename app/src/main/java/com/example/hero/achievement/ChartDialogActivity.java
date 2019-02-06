@@ -14,12 +14,19 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
+import com.example.hero.achievement.model.DatabaseAddProject;
+import com.example.hero.achievement.modeltwo.DatabaseModelChart;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ChartDialogActivity extends AppCompatActivity {
 
+
+
+    List<DatabaseModelChart> chartList = new LinkedList<>();              //vase delete kardan rahat tare
+    private SQLiteDBHelper sqLiteDBHelper;                              //mikhaym list haye zakhire shodaro beigirm
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

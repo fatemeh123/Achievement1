@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,10 +51,6 @@ public class MenuActivity extends AppCompatActivity {
 //        mDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dialog)); //vase inke kenaraye dialog gerd beshe
 
         initRecyclerView();
-
-
-        Toast.makeText(this, Core.getTime(), Toast.LENGTH_LONG).show();
-
 
 
         FloatingActionButton fab = findViewById(R.id.fab);   //done
@@ -115,6 +112,8 @@ public class MenuActivity extends AppCompatActivity {
                             Integer.valueOf(edtAddingDialogHourPerDay.getText().toString())
 
                     ));
+                    Log.d("star","data base add project worked ");
+
 
                     sqLiteDBHelper.insertSubjects(list);
 
@@ -166,6 +165,7 @@ public class MenuActivity extends AppCompatActivity {
             },3000);
         }else {
             super.onBackPressed();
+            //?????????????????????????????????????????????????????????????????? inja mikham kolan yeho az barname biroon bere
 
         }
 

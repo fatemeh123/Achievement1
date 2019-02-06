@@ -13,8 +13,10 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.hero.achievement.core.Core;
 import com.example.hero.achievement.model.DatabaseAddProject;
 import com.example.hero.achievement.modeltwo.DatabaseAddSession;
 
@@ -31,6 +33,18 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
     private MaterialDialog.Builder sessionDialogBuilder;
     private MaterialDialog addingSessionDialog;
 
+    private String calender;
+    private String day;
+    private String month0;
+    private String year0;
+    CalendarView calendarView;
+
+    //for AddSessionDialog
+    ImageView veryBadImV   ;
+    ImageView badImV       ;
+    ImageView sosSoImV     ;
+    ImageView goodImV      ;
+    ImageView veryGoodImV  ;
     NamesAdapter(Context context1, List<DatabaseAddProject> subjects) {
 
         context = context1;
@@ -96,9 +110,6 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
                 }
             });
 
-
-
-
             seeProgress.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -117,19 +128,34 @@ zakhire sazie etellate  DialogAddSession too data base
  */
         public void initDialogAddSession(final String name) {
 
-            sessionDialogBuilder = new MaterialDialog.Builder(context);
-            sessionDialogBuilder.customView(R.layout.addig_session_dialog_layout, false)
-                    .autoDismiss(false)
-                    .cancelable(false);
-            addingSessionDialog = sessionDialogBuilder.build();
-            final CalendarView calendarView = (CalendarView) addingSessionDialog.findViewById(R.id.my_calender);
+            init();
 
-            Button  btnBackAddSessionDialog = (Button) addingSessionDialog.findViewById(R.id.btn_Back_AddSession_Dialog);
-            Button btnSaveBackAddSessionDialog = (Button) addingSessionDialog.findViewById(R.id.btn_Save_AddSession_Dialog);
-            final TextView enjoytxt = (TextView) addingSessionDialog.findViewById(R.id.edt_AddSession_Dialog_enjoy);
-            final EditText hourEdt = (EditText) addingSessionDialog.findViewById(R.id.edt_AddSession_Dialog_hour);
-            final EditText qualityEdt = (EditText) addingSessionDialog.findViewById(R.id.edt_AddSession_Dialog_quality);
-            final int[] satisfaction = new int[1];
+            Button  btnBackAddSessionDialog   = (Button) addingSessionDialog.findViewById(R.id.btn_Back_AddSession_Dialog);
+            Button btnSaveBackAddSessionDialog= (Button) addingSessionDialog.findViewById(R.id.btn_Save_AddSession_Dialog);
+            final TextView enjoytxt           = (TextView) addingSessionDialog.findViewById(R.id.edt_AddSession_Dialog_enjoy);
+            final EditText hourEdt            = (EditText) addingSessionDialog.findViewById(R.id.edt_AddSession_Dialog_hour);
+            final EditText qualityEdt         = (EditText) addingSessionDialog.findViewById(R.id.edt_AddSession_Dialog_quality);
+            final int[] satisfaction          = new int[1];
+
+
+            calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                @Override
+                public void onSelectedDayChange( CalendarView view, int year, int month, int dayOfMonth) {
+                    int d = dayOfMonth;
+                    day =String.valueOf(d);
+                    int m= month;
+                    month0 = String.valueOf(month);
+                    int y = year;
+                    year0 = String.valueOf(year);
+
+                }
+            });
+            calender = (day+'/'+month0+'/'+year0);
+            if (calender.equals(""+'/'+""+'/'+""+'/')) {      //if no date selected , save today
+                calender = Core.getTime();
+            }
+
+
 
 
             btnBackAddSessionDialog.setOnClickListener(new View.OnClickListener() {
@@ -138,15 +164,6 @@ zakhire sazie etellate  DialogAddSession too data base
                     addingSessionDialog.dismiss(); //behtare ke aval soal beporse ke yeho etellat pak nashe // va mitoni az handler mesle code exit stefadeh koni
                 }
             });
-
-
-            //baraye har emogy yek adad dar nazar gereftam ke nemoodare stisfactiono badan neshoon bedam
-            ImageView veryBadImV        =  (ImageView) addingSessionDialog.findViewById(R.id.veryBad_session_Emogy);
-            ImageView badImV            = (ImageView) addingSessionDialog.findViewById(R.id.bad_session_Emogy);
-            ImageView sosSoImV          = (ImageView) addingSessionDialog.findViewById(R.id.soSo_session_Emogy);
-            ImageView goodImV           = (ImageView) addingSessionDialog.findViewById(R.id.good_session_Emogy);
-            ImageView veryGoodImV       = (ImageView) addingSessionDialog.findViewById(R.id.veryGood_session_Emogy);
-
 
             veryBadImV.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -188,8 +205,6 @@ zakhire sazie etellate  DialogAddSession too data base
                 public void onClick(View v) {
 
 
-                    String d= String.valueOf(calendarView.getDate());
-
                     if (enjoytxt.getText().toString().equals("")) {
                         enjoytxt.setError("is Empty...");
                     } else if (hourEdt.getText().toString().equals("")) {
@@ -199,13 +214,14 @@ zakhire sazie etellate  DialogAddSession too data base
                         qualityEdt.setError("is Empty...");
                     } else {
 
+                    Log.d("star","database ok **********************_________________----------- ");
 
                         list.add(new DatabaseAddSession(
                                 name ,
                                 satis,
                                 Integer.valueOf(hourEdt.getText().toString()),
                                 Integer.valueOf(qualityEdt.getText().toString()),
-                                d
+                                calender
                         ));
 
                         new Thread(new Runnable() {
@@ -228,6 +244,22 @@ zakhire sazie etellate  DialogAddSession too data base
 
 
     }
+    public void init(){
+        sessionDialogBuilder = new MaterialDialog.Builder(context);
+        sessionDialogBuilder.customView(R.layout.addig_session_dialog_layout, false)
+                .autoDismiss(false)
+                .cancelable(false);
+        addingSessionDialog = sessionDialogBuilder.build();
 
+        calendarView = (CalendarView) addingSessionDialog.findViewById(R.id.my_calender);
+
+         //baraye har emogy yek adad dar nazar gereftam ke nemoodare stisfactiono badan neshoon bedam
+         veryBadImV   = (ImageView) addingSessionDialog.findViewById(R.id.veryBad_session_Emogy);
+         badImV       = (ImageView) addingSessionDialog.findViewById(R.id.bad_session_Emogy);
+         sosSoImV     = (ImageView) addingSessionDialog.findViewById(R.id.soSo_session_Emogy);
+         goodImV      = (ImageView) addingSessionDialog.findViewById(R.id.good_session_Emogy);
+         veryGoodImV  = (ImageView) addingSessionDialog.findViewById(R.id.veryGood_session_Emogy);
+
+    }
 
 }

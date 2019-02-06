@@ -29,6 +29,12 @@
             android:layout_height="wrap_content"
             android:hint="Username" />
         <EditText
+            android:id="@+id/phoneNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone number" />
+
+        <EditText
             android:id="@+id/edtEmail"
             android:hint="Email"
             android:layout_width="match_parent"
@@ -38,12 +44,13 @@
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Paassword" />
+            android:hint="Paassword"
+            android:inputType="numberPassword"/>
 
 
 
         <Button
-            android:id="@+id/btnLogIn"
+            android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="save"
