@@ -144,8 +144,6 @@ public class MenuActivity extends AppCompatActivity {
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(MenuActivity.this,LinearLayout.VERTICAL,false));
 
-        fab.show();
-
         recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -156,17 +154,29 @@ public class MenuActivity extends AppCompatActivity {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (dx > dy){
-                    fab.show();
+                if (dx < dy){
+                    animateFab(fab , false);
                 }
                 else {
-                    fab.hide();
+                    animateFab(fab , true);
                 }
             }
         });
 
+        animateFab(fab,false);
     }
 
+    private void animateFab(FloatingActionButton fab , boolean animate){
+
+        // ok
+
+        if (!animate){
+            fab.animate().translationY(1000f).setDuration(500).start();
+        }
+        else if (animate){
+            fab.animate().translationY(0f).setDuration(500).start();
+        }
+    }
 
 
     /*

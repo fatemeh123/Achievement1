@@ -67,7 +67,7 @@
                 android:id="@+id/my_calender"
                 android:background="#12D6D6D6"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></CalendarView>
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 
@@ -140,6 +140,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
+                    android:maxLength="2"
                     android:hint="Hours this sesson"
                     android:inputType="number"
                     android:padding="10dp" />
@@ -151,11 +152,10 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-                    android:hint="quality of this session from 1 to 10"
+                    android:maxLength="1"
+                    android:hint="quality of this session from 1 to 7"
                     android:inputType="number"
                     android:padding="10dp" />
-
-
 
 
             </LinearLayout>

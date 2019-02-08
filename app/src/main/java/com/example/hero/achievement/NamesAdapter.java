@@ -225,19 +225,19 @@ zakhire sazie etellate  DialogAddSession too data base
                     if (enjoytxt.getText().toString().equals("")) {
                         enjoytxt.setError("is Empty...");
                     }
-                    else if (!hourEdt.getText().toString().matches("(0-24)")) {
-                        hourEdt.setError("is Ridiculous...");
-                    }
-
                     else if (hourEdt.getText().toString().equals("")) {
                         hourEdt.setError("is Empty...");
                     }
-                    else if (!qualityEdt.getText().toString().matches("(0-10)")) {
-                        qualityEdt.setError("is Ridiculous...");
+                    else if (Integer.valueOf(hourEdt.getText().toString()) > 24) {
+                        hourEdt.setError("is Ridiculous...");
                     }
                     else if (qualityEdt.getText().toString().equals("")) {
                         qualityEdt.setError("is Empty...");
-                    } else {
+                    }
+                    else if (Integer.valueOf(qualityEdt.getText().toString()) > 7) {
+                        qualityEdt.setError("is Ridiculous high...");
+                    }
+                    else {
 
                     Log.d("star","database ok  ");
 
