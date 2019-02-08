@@ -141,6 +141,7 @@ public class MenuActivity extends AppCompatActivity {
 
         RecyclerView recycler = findViewById(R.id.recycler);
         NamesAdapter adapter = new NamesAdapter(MenuActivity.this,list);
+        recycler.setHasFixedSize(true); //easy scroll
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(MenuActivity.this,LinearLayout.VERTICAL,false));
 
