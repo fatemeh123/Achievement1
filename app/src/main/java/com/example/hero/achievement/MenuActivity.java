@@ -101,12 +101,12 @@ public class MenuActivity extends AppCompatActivity {
                 else if (edtAddingDialogDayPerWeek.getText().toString().equals("")){
                     edtAddingDialogDayPerWeek.setError("is Empty...");
                 }
-                else if (!edtAddingDialogDayPerWeek.getText().toString().matches("[(0-7)]")) {
+                else if (Integer.valueOf(edtAddingDialogDayPerWeek.getText().toString()) > 7) {
                     edtAddingDialogDayPerWeek.setError("It must be between 0 to 7 days...");
                 }
                 else if (edtAddingDialogHourPerDay.getText().toString().equals("")){
                     edtAddingDialogHourPerDay.setError("is Empty...");
-                }     else if (!edtAddingDialogHourPerDay.getText().toString().matches("[(0-24)]")) {
+                }     else if (Integer.valueOf(edtAddingDialogHourPerDay.getText().toString()) > 24) {
                     edtAddingDialogHourPerDay.setError("it must be between 0 to 24 hours...");
                 }
                 else {

@@ -4,6 +4,7 @@ import android.app.Application;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Core extends Application {
 
@@ -14,16 +15,14 @@ public class Core extends Application {
 
     public static String getTime(){
 
-        SimpleDateFormat yy = new SimpleDateFormat("YYYY");
+        SimpleDateFormat yy = new SimpleDateFormat("yyyy.MM.dd");
         String y = yy.format(new Date());
 
 
         SimpleDateFormat mmmm = new SimpleDateFormat("MM");
         String mm = mmmm.format(new Date());
 
-
-
-        SimpleDateFormat dd = new SimpleDateFormat("DD");
+        SimpleDateFormat dd = new SimpleDateFormat("dd");
         String d = dd.format(new Date());
 
 
@@ -42,8 +41,9 @@ public class Core extends Application {
         //return y + "." + mm + "." + d + "_" + h + "." + m + "." + s;
         //return h +":" + m + ":" + s;
 
-        return y + "." + mm + "." + d ;
+        //return y + "." + mm + "." + d ;
 
+        return y;
     }
 
 }

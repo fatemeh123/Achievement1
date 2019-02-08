@@ -38,7 +38,6 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.MyViewHolder
     private String month0;
     private String year0;
     CalendarView calendarView;
-    private boolean stateDate = false;
 
     //for AddSessionDialog
     ImageView veryBadImV   ;
@@ -148,21 +147,24 @@ zakhire sazie etellate  DialogAddSession too data base
             final int[] satisfaction          = new int[1];
 
 
+            calender = Core.getTime();
+            log(calender);
             calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
                 @Override
                 public void onSelectedDayChange( CalendarView view, int year, int month, int dayOfMonth) {
-                    int d = dayOfMonth;
-                    day =String.valueOf(d);
-                    int m= month;
-                    month0 = String.valueOf(month);
-                    int y = year;
+
+                    day = String.valueOf(dayOfMonth);
+
+                    month0 = String.valueOf(month+1);
+
                     year0 = String.valueOf(year);
 
-                    stateDate = true;
+                    calender = year0 + '.' + month0 + '.'+ day;
+
+                    log(calender);
 
                 }
             });
-            calender = (day+'/'+month0+'/'+year0);
 
 
 
@@ -214,13 +216,7 @@ zakhire sazie etellate  DialogAddSession too data base
                 @Override
                 public void onClick(View v) {
 
-
-                    if (!stateDate) {      //if no date selected , save today
-                        calender = Core.getTime();
-                    }
-
-
-
+                    // تست بگیر
 
                     if (enjoytxt.getText().toString().equals("")) {
                         enjoytxt.setError("is Empty...");
@@ -234,7 +230,7 @@ zakhire sazie etellate  DialogAddSession too data base
                     else if (qualityEdt.getText().toString().equals("")) {
                         qualityEdt.setError("is Empty...");
                     }
-                    else if (Integer.valueOf(qualityEdt.getText().toString()) > 7) {
+                    else if (Integer.valueOf(qualityEdt.getText().toString()) > 10) {
                         qualityEdt.setError("is Ridiculous high...");
                     }
                     else {
@@ -248,6 +244,9 @@ zakhire sazie etellate  DialogAddSession too data base
                                 Integer.valueOf(qualityEdt.getText().toString()),
                                 calender
                         ));
+
+
+                        log(calender);
 
                         new Thread(new Runnable() {
                             @Override
@@ -285,6 +284,10 @@ zakhire sazie etellate  DialogAddSession too data base
          goodImV      = (ImageView) addingSessionDialog.findViewById(R.id.good_session_Emogy);
          veryGoodImV  = (ImageView) addingSessionDialog.findViewById(R.id.veryGood_session_Emogy);
 
+    }
+
+    private void log(String text){
+        Log.d("central_core" , text);
     }
 
 }
