@@ -181,30 +181,40 @@ zakhire sazie etellate  DialogAddSession too data base
                 @Override
                 public void onClick(View v) {
                     satisfaction[0] = 10;
+                    Toast.makeText(context, "feeling very bad saved", Toast.LENGTH_LONG).show();
+
                 }
             });
             badImV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     satisfaction[0] = 35;
+                    Toast.makeText(context, "feeling bad saved", Toast.LENGTH_LONG).show();
+
                 }
             });
             sosSoImV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     satisfaction[0] = 60;
+                    Toast.makeText(context, "feeling not bad saved", Toast.LENGTH_LONG).show();
+
                 }
             });
             goodImV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     satisfaction[0] = 80;
+                    Toast.makeText(context, "feeling good saved", Toast.LENGTH_LONG).show();
+
                 }
             });
             veryGoodImV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     satisfaction[0] = 100;
+                    Toast.makeText(context, "feeling amazing saved", Toast.LENGTH_LONG).show();
+
                 }
             });
 

@@ -80,8 +80,8 @@ public class ChartDialogActivity extends AppCompatActivity {
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
         cartesian.interactivity().hoverMode(HoverMode.BY_X);
 
-        cartesian.xAxis(0).title("row 1");
-        cartesian.yAxis(0).title("row 2");
+        cartesian.xAxis(0).title("date");
+        cartesian.yAxis(0).title(" duration");
 
         anyChartView.setChart(cartesian);
 
