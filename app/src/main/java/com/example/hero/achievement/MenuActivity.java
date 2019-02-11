@@ -141,10 +141,10 @@ public class MenuActivity extends AppCompatActivity {
 
         RecyclerView recycler = findViewById(R.id.recycler);
         NamesAdapter adapter = new NamesAdapter(MenuActivity.this,list);
-        recycler.setHasFixedSize(true); //easy scroll
+        recycler.setHasFixedSize(true);
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(MenuActivity.this,LinearLayout.VERTICAL,false));
-
+/*
         recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -162,11 +162,11 @@ public class MenuActivity extends AppCompatActivity {
                     animateFab(fab , true);
                 }
             }
-        });
+        });  */
 
-        animateFab(fab,false);
+       // animateFab(fab,false);
     }
-
+/*
     private void animateFab(FloatingActionButton fab , boolean animate){
 
         // ok
@@ -179,7 +179,7 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
-
+*/
     /*
          if the user clicked on back
     */

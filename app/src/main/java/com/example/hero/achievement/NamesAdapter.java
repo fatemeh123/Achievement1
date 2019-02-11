@@ -285,7 +285,9 @@ zakhire sazie etellate  DialogAddSession too data base
          veryGoodImV  = (ImageView) addingSessionDialog.findViewById(R.id.veryGood_session_Emogy);
 
     }
-
+/*
+to write logs easily
+ */
     private void log(String text){
         Log.d("central_core" , text);
     }
